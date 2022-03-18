@@ -1,0 +1,8 @@
+FROM node:14.15.4-stretch
+MAINTAINER Atiq Ahammed
+
+RUN mkdir /apps/
+ADD run.sh /apps/run.sh
+RUN chmod +x /apps/run.sh
+
+WORKDIR /apps/web_app
