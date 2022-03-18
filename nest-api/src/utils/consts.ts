@@ -6,3 +6,6 @@ export const possibleObject: string[] = [
   OBJECT_TYPE.ALPHANUMERIC,
   OBJECT_TYPE.REAL_NUMBERS,
 ];
+
+export const fileName = 'RandomFile.txt';
+export const folderName = 'files';

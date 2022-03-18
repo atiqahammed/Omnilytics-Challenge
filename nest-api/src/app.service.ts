@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { GenerateFileResponse } from './dto/generate.file.response.dto';
+import { ReportResponse } from './dto/report.response.dto';
 import { OBJECT_TYPE } from './enum/object.type.enum';
-import { possibleObject } from './utils/consts';
+import { fileName, folderName, possibleObject } from './utils/consts';
 const fs = require('fs');
 
 @Injectable()
 export class AppService {
 
-  private readonly fileName = 'RandomFile.txt';
-  private readonly filePath = `./files/${this.fileName}`;
+  private readonly fileName = fileName;
+  private readonly filePath = `./${folderName}/${this.fileName}`;
   private readonly TWO_MEGABYTE = 2 * (1024 * 1024);
   private integerCount: number = 0;
   private realNumberCount: number = 0;
@@ -49,25 +50,20 @@ export class AppService {
   }
 
   getRandomItem(): string {
-    //console.log('generating new random Item.')
     const randomObjectIndex = this.getRandomInt(possibleObject.length);
     const selectedObjectType = possibleObject[randomObjectIndex];
 
     switch(selectedObjectType) {
       case OBJECT_TYPE.INTEGER:
-        //console.log('generating new INTEGER');
         this.integerCount++;
         return this.getRandomInt(1000).toString();
       case OBJECT_TYPE.ALPHANUMERIC:
-        //console.log('generating new ALPHANUMERIC');
         this.alphanumaricCount++;
         return this.getRandomChar();
       case OBJECT_TYPE.REAL_NUMBERS:
-        //console.log('generating new REAL_NUMBERS');
         this.realNumberCount++;
         return this.getRandomRealNumber();
       case OBJECT_TYPE.ALPHABETICAL_STRINGS:
-        //console.log('generating new ALPHABETICAL_STRINGS');
         this.alphanumaricStringCount++;
         return this.getRandomAlphanumaricString();
     }
@@ -80,6 +76,16 @@ export class AppService {
     this.integerCount = 0;
     this.realNumberCount = 0;
   }
+
+  getReport(): ReportResponse {
+    let response = new ReportResponse();
+    response.integetCount = this.integerCount;
+    response.alphanumaricCount = this.alphanumaricCount;
+    response.alphanumaricStringCount = this.alphanumaricStringCount;
+    response.realNumderCount = this.realNumberCount;
+
+    return response;
+  } 
 
   async generateFile(): Promise<GenerateFileResponse> {
     this.initializeCount();
