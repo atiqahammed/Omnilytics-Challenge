@@ -9,6 +9,14 @@ const log = new Logger('main');
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const corsOrigin = '*';
+
+  app.enableCors({
+    origin: corsOrigin,
+    allowedHeaders:
+      'Origin, X-Requested-With, Content-Type, Accept',
+  });
+
   const config = new DocumentBuilder()
     .setTitle(process.env.SWAGGER_TITLE || 'title')
     .setDescription(process.env.SWAGGER_DESCRIPTION ||'description')
