@@ -12,7 +12,7 @@ export class AppController {
   }
 
   @Get('generate-file')
-  generateFile(): GenerateFileResponse {
-    return this.appService.generateFile();
+  async generateFile(): Promise<GenerateFileResponse> {
+    return await this.appService.generateFile();
   }
 }
