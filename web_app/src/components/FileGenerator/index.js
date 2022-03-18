@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment } from "react";
 import FileGeneratorContainer from "./FileGeneratorContainer";
 
 function FileGenerator() {
@@ -8,12 +7,10 @@ function FileGenerator() {
     loading,
     getReport,
     generateFile,
-    report
+    report,
+    downloadFile,
+    fileInfo
   } = FileGeneratorContainer();
-
-  useEffect(() => {
-
-  }, []);
 
   return (
     <Fragment>
@@ -25,7 +22,7 @@ function FileGenerator() {
 
         <div>
           <span>
-            Link <a href='#'>LinkedIn handle</a>
+            Link <a onClick={downloadFile} href='/#'>{fileInfo.fileName}</a>
           </span>
         </div>
         <br />
