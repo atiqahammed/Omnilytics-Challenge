@@ -6,14 +6,14 @@ const FileDownload = require("js-file-download");
 const FileGeneratorContainer = () => {
 
     const errorMessage = "Something went wrong. plese try again later.";
-    
-    const [loading, setLoading] = useState(false);
-    const [report, setReport] = useState({
+    const reportInitialState = {
         integetCount: 0,
         alphanumaricCount: 0,
         realNumderCount: 0,
         alphanumaricStringCount: 0
-    });
+    }
+    const [loading, setLoading] = useState(false);
+    const [report, setReport] = useState(reportInitialState);
     const [fileInfo, setFileInfo] = useState({
         isSuccess: false,
         fileName: ''
@@ -51,6 +51,7 @@ const FileGeneratorContainer = () => {
 
     const generateFile = () => {
         setLoading(true);
+        setReport(reportInitialState);
         get('/generate-file').then(response => {
             toast("File successfully generated.");
             setFileInfo(response);
