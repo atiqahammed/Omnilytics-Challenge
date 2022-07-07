@@ -5,13 +5,26 @@ import { ReportResponse } from './dto/report.response.dto';
 import { createReadStream } from 'fs';
 import { join } from 'path';
 import { fileName, folderName } from './utils/consts';
+// import all from 'it-all'
+// import { concat as uint8ArrayConcat } from 'uint8arrays/concat';
+// import { create } from 'ipfs';
+// import * as fileType from 'file-type'
+
+// import got from 'got';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
+  async getHello() {
+    const url = 'https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg';
+    // const stream = got.stream(url);
+    // console.log(await fileTypeFromStream(stream));
+    let file='https://ipfs.io/ipfs/QmbJ1xTDzMStxaNbeCCHRWKEqRbZhDsptTVFmN2BAw4ZDT';
+    var req = await fetch(file, {method:'HEAD'});
+    console.log(req.headers.get('content-type'));
+
     return this.appService.getHello();
   }
 
